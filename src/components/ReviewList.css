@@ -1,0 +1,12 @@
+.ReviewListItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.ReviewListItem-img {
+  margin-right: 20px;
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+}
