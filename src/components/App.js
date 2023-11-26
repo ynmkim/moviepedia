@@ -8,6 +8,7 @@ function App() {
   const [items, setItems] = useState([])
   const [order, setOrder] = useState('createdAt')
   const [offset, setOffset] = useState(0)
+  const [hasNext, setHasNext] = useState(false)
   const sortedItem = items.sort((a, b) => b[order] - a[order])
 
   const handleNewestClick = () => setOrder('createdAt')
@@ -17,13 +18,14 @@ function App() {
     setItems(nextItems)
   }
   const handlLoad = async (options) => {
-    const { reviews } = await getReviews(options)
+    const { reviews, paging } = await getReviews(options)
     if (offset === 0) {
       setItems(reviews)
     } else {
       setItems([...items, ...reviews])
     }
     setOffset(options.offset + options.limit)
+    setHasNext(paging.hasNext)
   }
 
   const handleLoadMore = () => {
@@ -39,7 +41,9 @@ function App() {
       <button onClick={handleNewestClick}>최신순</button>
       <button onClick={handleRatingClick}>평점순</button>
       <ReviewList items={sortedItem} onDelete={handleDelete} />
-      <button onClick={handleLoadMore}>더 보기</button>
+      <button disabled={!hasNext} onClick={handleLoadMore}>
+        더 보기
+      </button>
     </div>
   )
 }
