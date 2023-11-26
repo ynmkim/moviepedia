@@ -13,14 +13,14 @@ function App() {
     const nextItems = items.filter((item) => item.id !== id) // true가 되는 요소만 모아서 새로운 배열을 리턴함.
     setItems(nextItems)
   }
-  const handlLoad = async () => {
-    const { reviews } = await getReviews()
+  const handlLoad = async (orderQuery) => {
+    const { reviews } = await getReviews(orderQuery)
     setItems(reviews)
   }
 
   useEffect(() => { 
-    handlLoad()
-  }, [])
+    handlLoad(order)
+  }, [order])
 
   return (
     <div>
