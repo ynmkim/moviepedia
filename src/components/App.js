@@ -1,6 +1,6 @@
 import ReviewList from './ReviewList'
 import { getReviews } from '../api'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
   const [items, setItems] = useState([])
@@ -13,17 +13,20 @@ function App() {
     const nextItems = items.filter((item) => item.id !== id) // true가 되는 요소만 모아서 새로운 배열을 리턴함.
     setItems(nextItems)
   }
-  const handlLoadClick = async () => {
+  const handlLoad = async () => {
     const { reviews } = await getReviews()
     setItems(reviews)
   }
+
+  useEffect(() => { 
+    handlLoad()
+  }, [])
 
   return (
     <div>
       <button onClick={handleNewestClick}>최신순</button>
       <button onClick={handleRatingClick}>평점순</button>
       <ReviewList items={sortedItem} onDelete={handleDelete} />
-      <button onClick={handlLoadClick}>불러오기</button>
     </div>
   )
 }
