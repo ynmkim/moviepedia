@@ -35,15 +35,13 @@ function App() {
   useEffect(() => {
     handlLoad({ order, offset: 0, limit: LIMIT })
   }, [order])
-
+ 
   return (
     <div>
       <button onClick={handleNewestClick}>최신순</button>
       <button onClick={handleRatingClick}>평점순</button>
       <ReviewList items={sortedItem} onDelete={handleDelete} />
-      <button disabled={!hasNext} onClick={handleLoadMore}>
-        더 보기
-      </button>
+      {hasNext && <button onClick={handleLoadMore}>더 보기</button>}
     </div>
   )
 }
