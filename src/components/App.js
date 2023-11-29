@@ -22,7 +22,7 @@ function App() {
     if (offset === 0) {
       setItems(reviews)
     } else {
-      setItems([...items, ...reviews])
+      setItems((prevItem) => [...prevItem, ...reviews])
     }
     setOffset(options.offset + options.limit)
     setHasNext(paging.hasNext)
@@ -35,7 +35,7 @@ function App() {
   useEffect(() => {
     handlLoad({ order, offset: 0, limit: LIMIT })
   }, [order])
- 
+
   return (
     <div>
       <button onClick={handleNewestClick}>최신순</button>
