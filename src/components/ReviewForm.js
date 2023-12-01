@@ -1,37 +1,32 @@
 import { useState } from 'react'
 
 function ReviewForm() {
-  const [title, setTitle] = useState('')
-  const [rating, setRating] = useState(0)
-  const [content, setContent] = useState('')
+  const [values, setValues] = useState({
+    title: '',
+    rating: 0,
+    content: '',
+  })
 
-  const handleChangeTitle = (e) => {
-    setTitle(e.target.value)
-  }
-
-  const handleChangeRating = (e) => {
-    const nextRating = Number(e.target.value) || 0
-    setRating(nextRating)
-  }
-
-  const handleChangeContent = (e) => {
-    setContent(e.target.value)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setValues((prevValues) => ({ ...prevValues, [name]: value }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({
-      title,
-      rating,
-      content,
-    })
+    console.log(values)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <input value={title} onChange={handleChangeTitle} />
-      <input type="number" value={rating} onChange={handleChangeRating} />
-      <textarea value={content} onChange={handleChangeContent} />
+      <input name="title" value={values.title} onChange={handleChange} />
+      <input
+        type="number"
+        name="rating"
+        value={values.rating}
+        onChange={handleChange}
+      />
+      <textarea name="content" value={values.content} onChange={handleChange} />
       <button type="submit">확인</button>
     </form>
   )
