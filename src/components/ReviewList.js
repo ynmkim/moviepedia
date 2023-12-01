@@ -12,7 +12,7 @@ function ReviewListItem({ item, onDelete }) {
     <div className="ReviewListItem">
       <img className="ReviewListItem-img" src={item.imgUrl} alt={item.title} />
       <div>
-        <h1>{item.tile}</h1>
+        <h1>{item.title}</h1>
         <p>{item.rating}</p>
         <p>{formateDate(item.createdAt)}</p>
         <p>{item.content}</p>
